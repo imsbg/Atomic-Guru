@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sandeep.atomicguru">
 
-    <!-- 1. ADD THE 'android:name' ATTRIBUTE TO THE APPLICATION TAG -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AtomicGuruApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android.fullBackupContent="@xml/backup_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -24,9 +25,24 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- ============================================= -->
+            <!-- =========== ANDROID APP LINK INTENT FILTERS =========== -->
+            <!-- ============================================= -->
+            <!-- This intent-filter handles the deep links. -->
+            <!-- android:autoVerify="true" tells the system to check your assetlinks.json file. -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- The domain you are verifying -->
+                <data android:scheme="https" android:host="atomicguru.netlify.app" />
+                <!-- The specific path to handle -->
+                <data android:path="/open" />
+            </intent-filter>
+            <!-- ============================================= -->
         </activity>
 
-        <!-- 2. ADD THE NEW CRASH LOG ACTIVITY DECLARATION -->
         <activity
             android:name=".CrashLogActivity"
             android:exported="false"

@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sandeep.atomicguru.data.Element
 import com.sandeep.atomicguru.data.ElementRepository
+import com.sandeep.atomicguru.data.Promotion
 import com.sandeep.atomicguru.data.UserPreferences
+import com.sandeep.atomicguru.network.PromotionApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,7 +21,8 @@ data class AppState(
     val searchQuery: String = "",
     val currentLanguage: Language = Language.OD,
     val favoriteIds: Set<String> = emptySet(),
-    val tableView: TableView = TableView.GRID
+    val tableView: TableView = TableView.GRID,
+    val promotionToShow: Promotion? = null // State to hold the ad
 )
 
 class MainViewModel(private val repository: ElementRepository) : ViewModel() {
@@ -30,6 +33,7 @@ class MainViewModel(private val repository: ElementRepository) : ViewModel() {
     init {
         loadElements()
         loadFavorites()
+        fetchPromotion() // Fetch the promotion when the ViewModel is created
     }
 
     private fun loadElements() {
@@ -42,6 +46,22 @@ class MainViewModel(private val repository: ElementRepository) : ViewModel() {
     private fun loadFavorites() {
         val favIds = repository.getFavoriteElementIds()
         _state.update { it.copy(favoriteIds = favIds) }
+    }
+
+    private fun fetchPromotion() {
+        viewModelScope.launch {
+            try {
+                val response = PromotionApi.retrofitService.getPromotions()
+                // If the list is not empty, pick one randomly to show
+                if (response.promotions.isNotEmpty()) {
+                    _state.update { it.copy(promotionToShow = response.promotions.random()) }
+                }
+            } catch (e: Exception) {
+                // Handle network errors gracefully (e.g., no internet)
+                // In this case, we simply don't show a promotion, and promotionToShow will remain null.
+                e.printStackTrace()
+            }
+        }
     }
 
     fun onSearchQueryChanged(query: String) {
@@ -58,6 +78,8 @@ class MainViewModel(private val repository: ElementRepository) : ViewModel() {
         repository.toggleFavorite(atomicNumber)
         loadFavorites()
     }
+
+
 
     fun getElementByNumber(atomicNumber: Int): Element? {
         return _state.value.allElements.find { it.atomicNumber == atomicNumber }
@@ -79,13 +101,10 @@ class MainViewModel(private val repository: ElementRepository) : ViewModel() {
             _state.value.allElements
         } else {
             _state.value.allElements.filter { element ->
-                // Check if the transliterated name exists and contains the query
                 val nameOeMatches = element.name_oe?.contains(query, ignoreCase = true) ?: false
-
-                // The final search condition
                 element.name.contains(query, ignoreCase = true) ||
                         element.detailsOdia.generalInfo.elementName.contains(query, ignoreCase = true) ||
-                        nameOeMatches || // <-- ADDED THE NEW SEARCH CONDITION
+                        nameOeMatches ||
                         element.symbol.contains(query, ignoreCase = true) ||
                         element.atomicNumber.toString().contains(query)
             }

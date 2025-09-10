@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.sandeep.atomicguru.data.UserPreferences
 import com.sandeep.atomicguru.ui.screens.*
 import com.sandeep.atomicguru.viewmodel.MainViewModel
@@ -29,7 +30,6 @@ fun AppNavigation(
         popEnterTransition = { slideInHorizontally(animationSpec = tween(300), initialOffsetX = { -it }) },
         popExitTransition = { slideOutHorizontally(animationSpec = tween(300), targetOffsetX = { it }) }
     ) {
-        // ADDED SPLASH SCREEN ROUTE BACK
         composable(Screen.Splash.route) {
             SplashScreen(navController = navController)
         }
@@ -51,7 +51,10 @@ fun AppNavigation(
         }
         composable(
             route = Screen.Detail.route,
-            arguments = listOf(navArgument("atomicNumber") { type = NavType.IntType })
+            arguments = listOf(navArgument("atomicNumber") { type = NavType.IntType }),
+            // This tells the navigation graph that this screen can be opened via a deep link.
+            // The actual URI parsing and intent handling is done in MainActivity.
+            deepLinks = listOf(navDeepLink { uriPattern = "atomicguru://detail/{atomicNumber}" })
         ) { backStackEntry ->
             val atomicNumber = backStackEntry.arguments?.getInt("atomicNumber")
             if (atomicNumber != null) {
