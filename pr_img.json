@@ -1,0 +1,16 @@
+{
+  "promotions": [
+    {
+      "id": 1,
+      "imageUrl": "https://raw.githubusercontent.com/imsbg/Atomic-Guru/refs/heads/master/images/pr/pr1.png",
+      "destinationUrl": "https://imsbg.github.io/Ganita-Bingya-App/",
+      "altText": "Ganita Bingya"
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://raw.githubusercontent.com/imsbg/Atomic-Guru/refs/heads/master/images/pr/pr1.png",
+      "destinationUrl": "https://imsbg.github.io/Ganita-Bingya-App",
+      "altText": "Download Ganita Bingya app"
+    }
+  ]
+}

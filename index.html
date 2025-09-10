@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Guru - Interactive Periodic Table</title>
+        <!-- =================================================================== -->
+    <!-- ============== SEARCH ENGINE OPTIMIZATION (SEO) TAGS ============== -->
+    <!-- =================================================================== -->
+
+    <!-- Primary Meta Tags -->
+    <title>Atomic Guru - Interactive Periodic Table App for Android</title>
+    <meta name="title" content="Atomic Guru - Interactive Periodic Table App for Android">
+    <meta name="description" content="Download Atomic Guru, a beautiful and modern educational app for learning the periodic table. Built with Jetpack Compose, it features a dual-language (English/Odia) interface, interactive charts, and more.">
+    <meta name="keywords" content="Atomic Guru, Periodic Table App, Chemistry App, Android, Jetpack Compose, Kotlin, Educational App, Odia, Odisha, Sandeep Biswal G">
+    <meta name="author" content="Sandeep Biswal G">
+    
+    <!-- Link to the official page -->
+    <link rel="canonical" href="https://imsbg.github.io/Atomic-Guru/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://imsbg.github.io/Atomic-Guru/">
+    <meta property="og:title" content="Atomic Guru - Interactive Periodic Table App for Android">
+    <meta property="og:description" content="A beautiful and modern educational app for learning the periodic table, featuring a dual-language (English/Odia) interface, interactive charts, and a glassmorphic design.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://imsbg.github.io/Atomic-Guru/">
+    <meta property="twitter:title" content="Atomic Guru - Interactive Periodic Table App for Android">
+    <meta property="twitter:description" content="A beautiful and modern educational app for learning the periodic table, featuring a dual-language (English/Odia) interface, interactive charts, and a glassmorphic design.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png">
+
+    <!-- =================================================================== -->
+    <!-- ======================= STYLES AND FONTS ========================== -->
+    <!-- =================================================================== -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png">
+    
+    <!-- Google Fonts for English and Odia -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- 1. CSS STYLING --- */
+
+        /* Color Palette & Variables */
+        :root {
+            --bg-color-light: #F5F1ED;
+            --primary-color: #AA907A;
+            --secondary-color: #FFDA9F;
+            --text-color-light: #1C1B1F;
+            --text-color-dark: #E6E1E5;
+            --glass-bg-light: rgba(255, 255, 255, 0.4);
+            --glass-border-light: rgba(255, 255, 255, 0.6);
+            --font-family: 'Noto Sans Oriya', 'Poppins', sans-serif;
+        }
+
+        /* Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color-light);
+            background-image: linear-gradient(180deg, var(--bg-color-light) 0%, #e8e3de 100%);
+            color: var(--text-color-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; position: relative; z-index: 2; }
+
+        /* Floating Elements */
+        .floating-elements-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
+        .element-tile { position: absolute; border: 1px solid rgba(170, 144, 122, 0.3); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5px; color: var(--primary-color); background-color: rgba(245, 241, 237, 0.5); animation: float 20s ease-in-out infinite; }
+        .element-tile .atomic-number { font-size: 0.7em; width: 100%; text-align: left; padding-left: 5px; }
+        .element-tile .symbol { font-size: 1.8em; font-weight: 600; }
+        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-25px) rotate(10deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+
+        /* Header */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { display: flex; align-items: center; }
+        .logo img { width: 50px; height: 50px; margin-right: 15px; }
+        .logo h1 { font-size: 1.8rem; font-weight: 700; }
+        .language-switch { padding: 8px 16px; border: 1px solid var(--primary-color); background: transparent; color: var(--primary-color); border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+        .language-switch:hover { background: var(--primary-color); color: white; }
+
+        /* Hero Section */
+        .hero { text-align: center; padding: 80px 20px; }
+        .hero h2 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; min-height: 100px; }
+        .typing-text { color: var(--primary-color); font-weight: 700; position: relative; }
+        .typing-text::after { content: '|'; position: absolute; right: -10px; font-weight: 400; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; color: #555; }
+        .hero-image { max-width: 250px; margin: 40px auto; border-radius: 40px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .cta-button { display: inline-block; padding: 15px 35px; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 5px 15px rgba(170, 144, 122, 0.5); }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(170, 144, 122, 0.6); }
+
+        /* General Sections */
+        .glass-card { background: var(--glass-bg-light); border: 1px solid var(--glass-border-light); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 20px; padding: 30px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1); }
+        .section-title { text-align: center; font-size: 2.5rem; margin-top: 60px; margin-bottom: 40px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .feature-card { text-align: center; }
+        .feature-card i { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary-color); }
+        .feature-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .screenshots-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: center; }
+        .screenshots-grid img { width: 100%; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+        .screenshots-grid img:hover { transform: scale(1.03); }
+        .landscape-img { grid-column: 1 / -1; }
+        .more-apps { text-align: center; margin-top: 60px; padding: 40px 20px; }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px 20px; margin-top: 60px; border-top: 1px solid rgba(0,0,0,0.1); }
+        .social-links a { font-size: 1.5rem; margin: 0 15px; color: var(--text-color-light); transition: color 0.3s ease; }
+        .social-links a:hover { color: var(--primary-color); }
+        footer p { margin-top: 20px; font-size: 0.9rem; color: #777; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2.5rem; min-height: 80px; }
+            .screenshots-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-elements-container" aria-hidden="true"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png" alt="Atomic Guru Logo">
+                <h1 data-translate-key="appName">Atomic Guru</h1>
+            </div>
+            <button class="language-switch" id="lang-switch-btn" data-translate-key="langSwitch">Odia</button>
+        </header>
+
+        <section class="hero">
+            <h2 data-translate-key="heroTitle">Smart Learning, <span class="typing-text" id="typing-text"></span></h2>
+            <p data-translate-key="heroSubtitle">An interactive Periodic Table learning app for Android, built with 100% modern, native technologies. Explore, learn, and master the elements.</p>
+            <img class="hero-image" src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/1.png" alt="App Home Screen">
+            <a href="https://github.com/imsbg/Atomic-Guru/releases/download/v1.0.0/app-release.apk" class="cta-button" data-translate-key="downloadButton"><i class="fas fa-download"></i> Download The App</a>
+        </section>
+
+        <section class="features">
+            <h2 class="section-title" data-translate-key="featuresTitle">Features</h2>
+            <div class="features-grid">
+                <div class="feature-card glass-card">
+                    <i class="fas fa-language"></i>
+                    <h3 data-translate-key="feature1Title">Dual Language</h3>
+                    <p data-translate-key="feature1Desc">Seamlessly switch between English and Odia across the entire app.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <i class="fas fa-search-plus"></i>
+                    <h3 data-translate-key="feature2Title">Interactive View</h3>
+                    <p data-translate-key="feature2Desc">Pinch-to-zoom and pan the classic periodic table in landscape mode.</p>
+                </div>
+                <div class="feature-card glass-card">
+                    <i class="fas fa-hand-pointer"></i>
+                    <h3 data-translate-key="feature3Title">Quick Preview</h3>
+                    <p data-translate-key="feature3Desc">Long-press any element for a quick, elegant preview of its details.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="screenshots">
+            <h2 class="section-title" data-translate-key="screenshotsTitle">App Screenshots</h2>
+            <div class="screenshots-grid">
+                <img src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/1.png" alt="App Screenshot 1">
+                <img src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/3.png" alt="App Screenshot 3">
+                <img src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/2.png" alt="App Screenshot 2">
+                <img class="landscape-img" src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/4.png" alt="App Screenshot 4">
+            </div>
+        </section>
+
+        <section class="more-apps">
+            <div class="glass-card">
+                <h2 class="section-title" data-translate-key="moreAppsTitle">Check Out My Other Project!</h2>
+                <a href="https://imsbg.github.io/Ganita-Bingya-App/" class="cta-button" data-translate-key="ganitaBingyaButton"><i class="fas fa-download"></i> Download Ganita Bingya</a>
+            </div>
+        </section>
+
+        <footer>
+            <div class="social-links">
+                <a href="https://github.com/imsbg/Atomic-Guru" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/sandeepbiswalg/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p data-translate-key="footerText">Made with ❤️ in Odisha, India by Sandeep Biswal G</p>
+        </footer>
+    </div>
+
+
+    <script>
+        // --- 2. JAVASCRIPT ---
+
+        const translations = {
+            en: {
+                appName: "Atomic Guru", langSwitch: "Odia", heroTitle: "Smart Learning, ", heroWords: ["Simplified.", "Minimal.", "User-friendly.", "Clean."], heroSubtitle: "An interactive Periodic Table learning app for Android, built with 100% modern, native technologies. Explore, learn, and master the elements.", downloadButton: "Download The App", featuresTitle: "Features", feature1Title: "Dual Language", feature1Desc: "Seamlessly switch between English and Odia across the entire app.", feature2Title: "Interactive View", feature2Desc: "Pinch-to-zoom and pan the classic periodic table in landscape mode.", feature3Title: "Quick Preview", feature3Desc: "Long-press any element for a quick, elegant preview of its details.", screenshotsTitle: "App Screenshots", moreAppsTitle: "Check Out My Other Project!", ganitaBingyaButton: "Download Ganita Bingya", footerText: "Made with ❤️ in Odisha, India by Sandeep Biswal G"
+            },
+            od: {
+                appName: "ଆଟମିକ୍ ଗୁରୁ", langSwitch: "English", heroTitle: "ସ୍ମାର୍ଟ ଶିକ୍ଷା, ", heroWords: ["ସରଳୀକୃତ", "ନ୍ୟୁନତମ", "ବ୍ୟବହାର-ଅନୁକୂଳ", "ସ୍ୱଚ୍ଛ"], heroSubtitle: "ଆଣ୍ଡ୍ରଏଡ୍ ପାଇଁ ଏକ ଇଣ୍ଟରାକ୍ଟିଭ୍ ପର୍ଯ୍ୟାୟ ସାରଣୀ ଶିକ୍ଷା ଆପ୍, ଯାହା ୧୦୦% ଆଧୁନିକ, ନେଟିଭ୍ ଟେକ୍ନୋଲୋଜିରେ ନିର୍ମିତ। ଉପାଦାନଗୁଡ଼ିକୁ ଅନୁସନ୍ଧାନ କରନ୍ତୁ, ଶିଖନ୍ତୁ ଏବଂ ମାଷ୍ଟର କରନ୍ତୁ।", downloadButton: "ଆପ୍ ଡାଉନଲୋଡ୍ କରନ୍ତୁ", featuresTitle: "ବୈଶିଷ୍ଟ୍ୟଗୁଡିକ", feature1Title: "ଦ୍ୱିଭାଷୀ", feature1Desc: "ପୁରା ଆପ୍‌ରେ ଇଂରାଜୀ ଏବଂ ଓଡ଼ିଆ ମଧ୍ୟରେ ସହଜରେ ପରିବର୍ତ୍ତନ କରନ୍ତୁ।", feature2Title: "ଇଣ୍ଟରାକ୍ଟିଭ୍ ଭିଉ", feature2Desc: "ଲ୍ୟାଣ୍ଡସ୍କେପ୍ ମୋଡ୍‌ରେ କ୍ଲାସିକ୍ ପର୍ଯ୍ୟାୟ ସାରଣୀକୁ ପିଞ୍ଚ-ଟୁ-ଜୁମ୍ ଏବଂ ପ୍ୟାନ୍ କରନ୍ତୁ।", feature3Title: "ଶୀଘ୍ର ପୂର୍ବାବଲୋକନ", feature3Desc: "କୌଣସି ଉପାଦାନର ମୁଖ୍ୟ ବିବରଣୀର ଏକ ଶୀଘ୍ର, ସୁନ୍ଦର ପୂର୍ବାବଲୋକନ ପାଇଁ ଲଙ୍ଗ୍-ପ୍ରେସ୍ କରନ୍ତୁ।", screenshotsTitle: "ଆପ୍ ସ୍କ୍ରିନସଟ୍", moreAppsTitle: "ମୋର ଅନ୍ୟ ପ୍ରୋଜେକ୍ଟ ଦେଖନ୍ତୁ!", ganitaBingyaButton: "ଗଣିତ ବିଜ୍ଞ ଡାଉନଲୋଡ୍ କରନ୍ତୁ", footerText: "ଓଡ଼ିଶା, ଭାରତରେ ❤️ ସହିତ ତିଆରି, ସନ୍ଦୀପ ବିଶ୍ଵାଳ ଜି ଙ୍କ ଦ୍ୱାରା"
+            }
+        };
+
+        const langSwitchButton = document.getElementById('lang-switch-btn');
+        let currentLang = 'od';
+
+        // --- CORRECTION --- Declare variable here, but assign it inside the function
+        let typingTextElement; 
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingTimeout;
+
+        function type() {
+            // Failsafe in case the element isn't ready
+            if (!typingTextElement) return;
+
+            const currentWords = translations[currentLang].heroWords;
+            const currentWord = currentWords[wordIndex];
+            const typingSpeed = 100;
+            const deletingSpeed = 60;
+            const pauseDuration = 2000;
+
+            clearTimeout(typingTimeout);
+
+            if (isDeleting) {
+                typingTextElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingTextElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typingTimeout = setTimeout(type, pauseDuration);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % currentWords.length;
+                typingTimeout = setTimeout(type, 500);
+            } else {
+                const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
+                typingTimeout = setTimeout(type, currentSpeed);
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const langData = translations[lang];
+            
+            document.querySelectorAll('[data-translate-key]').forEach(element => {
+                const key = element.dataset.translateKey;
+                if (langData[key]) {
+                    if (key === 'heroTitle') {
+                         element.innerHTML = langData[key] + `<span class="typing-text" id="typing-text"></span>`;
+                    } else {
+                         element.innerHTML = langData[key];
+                    }
+                }
+            });
+
+            // --- CORRECTION --- Re-acquire the reference to the newly created span element
+            typingTextElement = document.getElementById('typing-text');
+
+            const downloadButton = document.querySelector('.cta-button');
+            if(downloadButton.innerHTML.includes('</i>')) {
+                 downloadButton.innerHTML = `<i class="fas fa-download"></i> ${langData['downloadButton']}`;
+            }
+            const ganitaBingyaButton = document.querySelector('.more-apps .cta-button');
+            if(ganitaBingyaButton.innerHTML.includes('</i>')) {
+                 ganitaBingyaButton.innerHTML = `<i class="fas fa-download"></i> ${langData['ganitaBingyaButton']}`;
+            }
+
+            // Reset and restart the typing animation
+            clearTimeout(typingTimeout);
+            wordIndex = 0;
+            charIndex = 0;
+            isDeleting = false;
+            setTimeout(type, 100); 
+        }
+
+        langSwitchButton.addEventListener('click', () => {
+            const newLang = currentLang === 'en' ? 'od' : 'en';
+            setLanguage(newLang);
+        });
+        
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements-container');
+            const elements = [ { number: 1, symbol: 'H' }, { number: 2, symbol: 'He' }, { number: 6, symbol: 'C' }, { number: 7, symbol: 'N' }, { number: 8, symbol: 'O' }, { number: 11, symbol: 'Na' }, { number: 17, symbol: 'Cl' }, { number: 26, symbol: 'Fe' }, { number: 47, symbol: 'Ag' }, { number: 79, symbol: 'Au' } ];
+            const elementCount = 15;
+            for (let i = 0; i < elementCount; i++) {
+                const tile = document.createElement('div');
+                tile.className = 'element-tile';
+                const randomElement = elements[Math.floor(Math.random() * elements.length)];
+                tile.innerHTML = `<span class="atomic-number">${randomElement.number}</span><span class="symbol">${randomElement.symbol}</span>`;
+                const size = Math.random() * 50 + 40;
+                tile.style.width = `${size}px`;
+                tile.style.height = `${size}px`;
+                tile.style.top = `${Math.random() * 100}%`;
+                tile.style.left = `${Math.random() * 100}%`;
+                tile.style.animationDuration = `${Math.random() * 15 + 10}s`;
+                tile.style.animationDelay = `-${Math.random() * 10}s`; 
+                tile.style.opacity = Math.random() * 0.4 + 0.1;
+                container.appendChild(tile);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('od');
+            createFloatingElements();
+        });
+    </script>
+
+</body>
+</html>
