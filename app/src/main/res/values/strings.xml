@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Atomic Guru</string>
+    <string name="splash_footer">Made with ❤️ in Odisha, India\nby Sandeep Biswal G</string>
+    <string name="search_placeholder">Search by Name, Symbol, or Number</string>
+    <string name="favorites">Favorites</string>
+    <string name="atomic_mass">Atomic Mass</string>
+    <string name="group">Group</string>
+    <string name="period">Period</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="no_favorites">You have no favorite elements yet.</string>
+    <string name="element_details">Element Details</string>
+    <string name="toggle_language">Toggle Language</string>
+    <string name="added_to_favorites">%1$s added to favorites</string>
+    <string name="removed_from_favorites">%1$s removed from favorites</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="back">Back</string>
+    <string name="bookmark">Bookmark</string>
+
+    <!-- NEW STRINGS (Now unique) -->
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="toggle_view">Toggle View</string>
+    <string name="learn_more_wiki">Learn More on Wikipedia</string>
+
+    <string name="about">About</string>
+    <string name="general_information">General Information</string>
+    <string name="physical_properties">Physical Properties</string>
+    <string name="chemical_properties">Chemical Properties</string>
+    <string name="occurrence">Occurrence</string>
+    <string name="uses">Common Uses</string>
+    <string name="appearance">Appearance</string>
+    <string name="group_period">Group &amp; Period</string>
+    <string name="melting_point">Melting Point</string>
+    <string name="boiling_point">Boiling Point</string>
+    <string name="density">Density</string>
+    <string name="conductivity">Conductivity</string>
+
+    <string name="welcome">Welcome,</string>
+    <string name="select_language">Select Language</string>
+    <string name="lets_start">Let\'s Start</string>
+    <string name="language_odia">ଓଡ଼ିଆ</string>
+    <string name="language_english">English</string>
+
+    <!-- NEW STRINGS FOR SETTINGS SCREEN -->
+    <string name="more_apps_and_links">More Apps &amp; Links</string>
+    <string name="download_ganita_bingya">Download Ganita Bingya</string>
+    <string name="play_online_games">Play Online Games</string>
+    <string name="follow_on_instagram">Follow me on Instagram</string>
+</resources>

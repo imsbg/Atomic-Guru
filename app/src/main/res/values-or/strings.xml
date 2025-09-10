@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">ଆଟମିକ୍ ଗୁରୁ</string>
+    <string name="splash_footer">ଓଡ଼ିଶା, ଭାରତରେ ❤️ ସହିତ ତିଆରି\nସନ୍ଦୀପ୍ ବିଶ୍ଵାଳ ଜି ଙ୍କ ଦ୍ୱାରା</string>
+    <string name="search_placeholder">ନାମ, ପ୍ରତୀକ ବା ସଂଖ୍ୟା ଦ୍ୱାରା ଖୋଜନ୍ତୁ</string>
+    <string name="favorites">ପ୍ରିୟ</string>
+    <string name="atomic_mass">ପରମାଣୁ ଭାର</string>
+    <string name="group">ଗ୍ରୁପ୍</string>
+    <string name="period">ପର୍ଯ୍ୟାୟ</string>
+    <string name="category">ଶ୍ରେଣୀ</string>
+    <string name="description">ବିବରଣୀ</string>
+    <string name="no_favorites">ଆପଣଙ୍କର କୌଣସି ପ୍ରିୟ ଉପାଦାନ ନାହିଁ।</string>
+    <string name="element_details">ଉପାଦାନ ବିବରଣୀ</string>
+    <string name="toggle_language">ଭାଷା ବଦଳାନ୍ତୁ</string>
+    <string name="added_to_favorites">%1$s ପ୍ରିୟରେ ଯୋଗ କରାଗଲା</string>
+    <string name="removed_from_favorites">%1$s ପ୍ରିୟରୁ ହଟାଗଲା</string>
+    <string name="my_favorites">ମୋର ପ୍ରିୟ</string>
+    <string name="back">ପଛକୁ</string>
+    <string name="bookmark">ବୁକମାର୍କ</string>
+
+    <!-- NEW STRINGS (Now unique) -->
+    <string name="settings">ସେଟିଂସ୍</string>
+    <string name="language">ଭାଷା</string>
+    <string name="toggle_view">ଭିଉ ବଦଳାନ୍ତୁ</string>
+    <string name="learn_more_wiki">ୱିକିପିଡ଼ିଆରେ ଅଧିକ ଜାଣନ୍ତୁ</string>
+
+    <!-- NEW STRINGS FOR DETAIL SCREEN SECTIONS -->
+    <string name="about">ବିଷୟରେ</string>
+    <string name="general_information">ସାଧାରଣ ସୂଚନା</string>
+    <string name="physical_properties">ଭୌତିକ ଗୁଣ</string>
+    <string name="chemical_properties">ରାସାୟନିକ ଗୁଣ</string>
+    <string name="occurrence">ପ୍ରାପ୍ତିସ୍ଥାନ</string>
+    <string name="uses">ସାଧାରଣ ବ୍ୟବହାର</string>
+    <string name="appearance">ଦୃଶ୍ୟ</string>
+    <string name="group_period">ଗ୍ରୁପ୍ ଏବଂ ପର୍ଯ୍ୟାୟ</string>
+    <string name="melting_point">ଗଳନାଙ୍କ</string>
+    <string name="boiling_point">ସ୍ଫୁଟନାଙ୍କ</string>
+    <string name="density">ଘନତା</string>
+    <string name="conductivity">ପରିବହନକାରିତା</string>
+
+        <!-- NEW STRINGS FOR LANGUAGE SELECTION -->
+        <string name="welcome">ସ୍ଵାଗତ,</string>
+        <string name="select_language">ଭାଷା ବାଛନ୍ତୁ</string>
+        <string name="lets_start">ଆରମ୍ଭ କରନ୍ତୁ</string>
+        <string name="language_odia">ଓଡ଼ିଆ</string>
+        <string name="language_english">English</string>
+
+    <!-- NEW STRINGS FOR SETTINGS SCREEN -->
+    <string name="more_apps_and_links">ଅଧିକ ଆପ୍ ଏବଂ ଲିଙ୍କ୍</string>
+    <string name="download_ganita_bingya">ଗଣିତ ବିଜ୍ଞ ଡାଉନଲୋଡ଼ କରନ୍ତୁ</string>
+    <string name="play_online_games">ଅନଲାଇନ୍ ଗେମ୍ ଖେଳନ୍ତୁ</string>
+    <string name="follow_on_instagram">ମୋତେ ଇନଷ୍ଟାଗ୍ରାମରେ ଫଲୋ କରନ୍ତୁ</string>
+
+</resources>
