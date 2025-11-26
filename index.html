@@ -3,9 +3,9 @@
 <head>
     <meta name="google-site-verification" content="PwQ6-C2NiW61Ed7LdkchITSrVzVEzHCc2At8VvyuO5Y" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atomic Guru - Interactive Periodic Table</title>
-        <!-- =================================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- =================================================================== -->
     <!-- ============== SEARCH ENGINE OPTIMIZATION (SEO) TAGS ============== -->
     <!-- =================================================================== -->
 
@@ -41,94 +41,299 @@
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png">
     
     <!-- Google Fonts for English and Odia -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Oriya:wght@400;700&family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-        /* --- 1. CSS STYLING --- */
-
-        /* Color Palette & Variables */
         :root {
-            --bg-color-light: #F5F1ED;
-            --primary-color: #AA907A;
-            --secondary-color: #FFDA9F;
-            --text-color-light: #1C1B1F;
-            --text-color-dark: #E6E1E5;
-            --glass-bg-light: rgba(255, 255, 255, 0.4);
-            --glass-border-light: rgba(255, 255, 255, 0.6);
-            --font-family: 'Noto Sans Oriya', 'Poppins', sans-serif;
+            /* Futuristic Palette */
+            --bg-base: #F0F2F5;
+            --accent-primary: #007AFF;
+            --accent-glow: #5E5CE6;
+            --text-main: #111111;
+            --text-muted: #6e6e73;
+            
+            /* Spatial UI Variables */
+            --glass-surface: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --blur-strength: 25px;
+            
+            /* Dimensions */
+            --radius-outer: 36px;
+            --radius-inner: 24px;
+            --content-width: 1200px;
         }
 
-        /* Base Styles */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* --- Global Reset & Typography --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
         body {
-            font-family: var(--font-family);
-            background-color: var(--bg-color-light);
-            background-image: linear-gradient(180deg, var(--bg-color-light) 0%, #e8e3de 100%);
-            color: var(--text-color-light);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Poppins", "Noto Sans Oriya", sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
             overflow-x: hidden;
             position: relative;
         }
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; position: relative; z-index: 2; }
 
-        /* Floating Elements */
-        .floating-elements-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
-        .element-tile { position: absolute; border: 1px solid rgba(170, 144, 122, 0.3); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5px; color: var(--primary-color); background-color: rgba(245, 241, 237, 0.5); animation: float 20s ease-in-out infinite; }
-        .element-tile .atomic-number { font-size: 0.7em; width: 100%; text-align: left; padding-left: 5px; }
-        .element-tile .symbol { font-size: 1.8em; font-weight: 600; }
-        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-25px) rotate(10deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+        /* --- Animated Aurora Background --- */
+        .aurora-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(0, 122, 255, 0.15), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(94, 92, 230, 0.15), transparent 25%);
+            filter: blur(60px);
+            animation: breathe 10s ease-in-out infinite alternate;
+        }
+        @keyframes breathe { from { opacity: 0.6; transform: scale(1); } to { opacity: 1; transform: scale(1.1); } }
 
-        /* Header */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
-        .logo { display: flex; align-items: center; }
-        .logo img { width: 50px; height: 50px; margin-right: 15px; }
-        .logo h1 { font-size: 1.8rem; font-weight: 700; }
-        .language-switch { padding: 8px 16px; border: 1px solid var(--primary-color); background: transparent; color: var(--primary-color); border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
-        .language-switch:hover { background: var(--primary-color); color: white; }
+        /* --- Floating Elements (Subtle Watermarks) --- */
+        .floating-elements-container { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .element-tile {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-weight: 700; color: var(--text-muted);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            animation: floatUp 25s linear infinite;
+        }
+        .element-tile .atomic-number { font-size: 0.7rem; position: absolute; top: 6px; left: 8px; opacity: 0.5; }
+        .element-tile .symbol { font-size: 1.5rem; color: var(--accent-primary); opacity: 0.8; }
+        @keyframes floatUp { 0% { transform: translateY(110vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(20deg); opacity: 0; } }
 
-        /* Hero Section */
-        .hero { text-align: center; padding: 80px 20px; }
-        .hero h2 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; min-height: 100px; }
-        .typing-text { color: var(--primary-color); font-weight: 700; position: relative; }
-        .typing-text::after { content: '|'; position: absolute; right: -10px; font-weight: 400; animation: blink 0.7s infinite; }
+        /* --- Layout Container --- */
+        .container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- Floating Navbar --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 24px; margin-top: 24px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 100px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            position: sticky; top: 24px; z-index: 100;
+            transition: transform 0.3s ease;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo img { width: 40px; height: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo h1 { font-size: 1.2rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.5px; }
+        
+        .language-switch {
+            background: #000; color: #fff; border: none;
+            padding: 10px 24px; border-radius: 30px;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .language-switch:hover { transform: scale(1.05); }
+        .language-switch:active { transform: scale(0.95); }
+
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        
+        .hero h2 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #111 0%, #444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            min-height: 1.2em; /* Prevent layout shift */
+        }
+        
+        .typing-text {
+            color: var(--accent-primary);
+            -webkit-text-fill-color: var(--accent-primary); /* Override gradient */
+            position: relative;
+        }
+        .typing-text::after {
+            content: ''; position: absolute; right: -4px; top: 10%; height: 80%; width: 3px;
+            background: var(--accent-primary); border-radius: 2px;
+            animation: blink 1s infinite;
+        }
         @keyframes blink { 50% { opacity: 0; } }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px; color: #555; }
-        .hero-image { max-width: 250px; margin: 40px auto; border-radius: 40px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .cta-button { display: inline-block; padding: 15px 35px; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 5px 15px rgba(170, 144, 122, 0.5); }
-        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(170, 144, 122, 0.6); }
 
-        /* General Sections */
-        .glass-card { background: var(--glass-bg-light); border: 1px solid var(--glass-border-light); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 20px; padding: 30px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1); }
-        .section-title { text-align: center; font-size: 2.5rem; margin-top: 60px; margin-bottom: 40px; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .feature-card { text-align: center; }
-        .feature-card i { font-size: 2.5rem; margin-bottom: 15px; color: var(--primary-color); }
-        .feature-card h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .screenshots-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-items: center; }
-        .screenshots-grid img { width: 100%; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
-        .screenshots-grid img:hover { transform: scale(1.03); }
-        .landscape-img { grid-column: 1 / -1; }
-        .more-apps { text-align: center; margin-top: 60px; padding: 40px 20px; }
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-muted);
+            max-width: 650px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
 
-        /* Footer */
-        footer { text-align: center; padding: 40px 20px; margin-top: 60px; border-top: 1px solid rgba(0,0,0,0.1); }
-        .social-links a { font-size: 1.5rem; margin: 0 15px; color: var(--text-color-light); transition: color 0.3s ease; }
-        .social-links a:hover { color: var(--primary-color); }
-        footer p { margin-top: 20px; font-size: 0.9rem; color: #777; }
+        /* 3D Phone Container */
+        .hero-visual {
+            position: relative;
+            margin: 20px 0 50px;
+        }
+        .hero-image {
+            max-width: 280px;
+            border-radius: 45px;
+            border: 8px solid #fff;
+            box-shadow: 
+                0 0 0 1px rgba(0,0,0,0.05),
+                0 30px 60px -15px rgba(0, 0, 0, 0.2),
+                inset 0 0 20px rgba(0,0,0,0.05);
+            transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        .hero-visual:hover .hero-image { transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02); }
 
-        /* Responsive */
+        /* Primary Button */
+        .cta-button {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 18px 40px;
+            background: var(--accent-primary);
+            color: white; text-decoration: none;
+            border-radius: 50px; font-weight: 600; font-size: 1.1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 122, 255, 0.4);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .cta-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 35px -5px rgba(0, 122, 255, 0.5);
+        }
+
+        /* --- Bento Grid Layout (Features) --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem; font-weight: 700; letter-spacing: -1px;
+            margin: 80px 0 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .glass-card {
+            background: var(--glass-surface);
+            backdrop-filter: blur(var(--blur-strength));
+            -webkit-backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: var(--radius-outer);
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; flex-direction: column; align-items: flex-start;
+            position: relative; overflow: hidden;
+        }
+        
+        .glass-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.75);
+        }
+
+        .icon-box {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            font-size: 1.5rem; color: var(--accent-primary);
+        }
+
+        .glass-card h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; }
+        .glass-card p { font-size: 1rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* --- Screenshots (Staggered Grid) --- */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .screenshots-grid img {
+            width: 100%;
+            border-radius: var(--radius-inner);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+            transition: transform 0.4s ease;
+        }
+        
+        /* Offset effects for visual interest */
+        .screenshots-grid img:nth-child(2) { margin-top: 40px; }
+        .screenshots-grid img:nth-child(3) { margin-top: -40px; }
+        
+        .screenshots-grid img:hover { transform: scale(1.03); z-index: 10; }
+        
+        .landscape-img {
+            grid-column: 1 / -1;
+            margin-top: 0 !important;
+            max-width: 90%; margin: 20px auto 0 auto !important; display: block;
+        }
+
+        /* --- More Apps (Hero Card Style) --- */
+        .more-apps { margin: 100px 0 60px; }
+        .promo-card {
+            background: radial-gradient(circle at top right, #eef2ff, #fff);
+            text-align: center;
+            align-items: center;
+        }
+        .promo-card .section-title { margin-top: 0; margin-bottom: 20px; }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            color: var(--text-muted);
+        }
+        .social-links { margin-bottom: 24px; }
+        .social-links a {
+            font-size: 1.6rem; color: var(--text-main); margin: 0 16px;
+            opacity: 0.7; transition: all 0.2s;
+        }
+        .social-links a:hover { opacity: 1; transform: scale(1.1); color: var(--accent-primary); }
+        footer p { font-size: 0.9rem; font-weight: 500; }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .screenshots-grid img:nth-child(2), .screenshots-grid img:nth-child(3) { margin-top: 0; }
+        }
+
         @media (max-width: 768px) {
-            .hero h2 { font-size: 2.5rem; min-height: 80px; }
-            .screenshots-grid { grid-template-columns: 1fr; }
+            .hero-image { max-width: 240px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .screenshots-grid { grid-template-columns: 1fr; gap: 20px; }
+            .glass-card { padding: 30px 24px; }
+            .section-title { font-size: 1.8rem; margin: 60px 0 30px; }
+            .landscape-img { width: 100%; max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Animated background layers -->
+    <div class="aurora-bg"></div>
     <div class="floating-elements-container" aria-hidden="true"></div>
 
     <div class="container">
@@ -143,7 +348,11 @@
         <section class="hero">
             <h2 data-translate-key="heroTitle">Smart Learning, <span class="typing-text" id="typing-text"></span></h2>
             <p data-translate-key="heroSubtitle">An interactive Periodic Table learning app for Android, built with 100% modern, native technologies. Explore, learn, and master the elements.</p>
-            <img class="hero-image" src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/1.png" alt="App Home Screen">
+            
+            <div class="hero-visual">
+                <img class="hero-image" src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/1.png" alt="App Home Screen">
+            </div>
+
             <a href="https://github.com/imsbg/Atomic-Guru/releases/download/v1.0.0/app-release.apk" class="cta-button" data-translate-key="downloadButton"><i class="fas fa-download"></i> Download The App</a>
         </section>
 
@@ -151,17 +360,17 @@
             <h2 class="section-title" data-translate-key="featuresTitle">Features</h2>
             <div class="features-grid">
                 <div class="feature-card glass-card">
-                    <i class="fas fa-language"></i>
+                    <div class="icon-box"><i class="fas fa-language"></i></div>
                     <h3 data-translate-key="feature1Title">Dual Language</h3>
                     <p data-translate-key="feature1Desc">Seamlessly switch between English and Odia across the entire app.</p>
                 </div>
                 <div class="feature-card glass-card">
-                    <i class="fas fa-search-plus"></i>
+                    <div class="icon-box"><i class="fas fa-search-plus"></i></div>
                     <h3 data-translate-key="feature2Title">Interactive View</h3>
                     <p data-translate-key="feature2Desc">Pinch-to-zoom and pan the classic periodic table in landscape mode.</p>
                 </div>
                 <div class="feature-card glass-card">
-                    <i class="fas fa-hand-pointer"></i>
+                    <div class="icon-box"><i class="fas fa-hand-pointer"></i></div>
                     <h3 data-translate-key="feature3Title">Quick Preview</h3>
                     <p data-translate-key="feature3Desc">Long-press any element for a quick, elegant preview of its details.</p>
                 </div>
@@ -179,7 +388,7 @@
         </section>
 
         <section class="more-apps">
-            <div class="glass-card">
+            <div class="glass-card promo-card">
                 <h2 class="section-title" data-translate-key="moreAppsTitle">Check Out My Other Project!</h2>
                 <a href="https://imsbg.github.io/Ganita-Bingya-App/" class="cta-button" data-translate-key="ganitaBingyaButton"><i class="fas fa-download"></i> Download Ganita Bingya</a>
             </div>
@@ -196,7 +405,7 @@
 
 
     <script>
-        // --- 2. JAVASCRIPT ---
+        // --- JAVASCRIPT LOGIC ---
 
         const translations = {
             en: {
@@ -210,7 +419,6 @@
         const langSwitchButton = document.getElementById('lang-switch-btn');
         let currentLang = 'od';
 
-        // --- CORRECTION --- Declare variable here, but assign it inside the function
         let typingTextElement; 
         let wordIndex = 0;
         let charIndex = 0;
@@ -218,7 +426,6 @@
         let typingTimeout;
 
         function type() {
-            // Failsafe in case the element isn't ready
             if (!typingTextElement) return;
 
             const currentWords = translations[currentLang].heroWords;
@@ -265,7 +472,6 @@
                 }
             });
 
-            // --- CORRECTION --- Re-acquire the reference to the newly created span element
             typingTextElement = document.getElementById('typing-text');
 
             const downloadButton = document.querySelector('.cta-button');
@@ -277,7 +483,6 @@
                  ganitaBingyaButton.innerHTML = `<i class="fas fa-download"></i> ${langData['ganitaBingyaButton']}`;
             }
 
-            // Reset and restart the typing animation
             clearTimeout(typingTimeout);
             wordIndex = 0;
             charIndex = 0;
@@ -293,20 +498,19 @@
         function createFloatingElements() {
             const container = document.querySelector('.floating-elements-container');
             const elements = [ { number: 1, symbol: 'H' }, { number: 2, symbol: 'He' }, { number: 6, symbol: 'C' }, { number: 7, symbol: 'N' }, { number: 8, symbol: 'O' }, { number: 11, symbol: 'Na' }, { number: 17, symbol: 'Cl' }, { number: 26, symbol: 'Fe' }, { number: 47, symbol: 'Ag' }, { number: 79, symbol: 'Au' } ];
-            const elementCount = 15;
+            const elementCount = 20;
             for (let i = 0; i < elementCount; i++) {
                 const tile = document.createElement('div');
                 tile.className = 'element-tile';
                 const randomElement = elements[Math.floor(Math.random() * elements.length)];
                 tile.innerHTML = `<span class="atomic-number">${randomElement.number}</span><span class="symbol">${randomElement.symbol}</span>`;
-                const size = Math.random() * 50 + 40;
+                const size = Math.random() * 40 + 40;
                 tile.style.width = `${size}px`;
                 tile.style.height = `${size}px`;
-                tile.style.top = `${Math.random() * 100}%`;
-                tile.style.left = `${Math.random() * 100}%`;
-                tile.style.animationDuration = `${Math.random() * 15 + 10}s`;
-                tile.style.animationDelay = `-${Math.random() * 10}s`; 
-                tile.style.opacity = Math.random() * 0.4 + 0.1;
+                tile.style.left = `${Math.random() * 95}%`;
+                // Randomize start delay so they don't all come up at once
+                tile.style.animationDelay = `-${Math.random() * 25}s`; 
+                tile.style.animationDuration = `${Math.random() * 15 + 20}s`;
                 container.appendChild(tile);
             }
         }
