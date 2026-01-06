@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- =================================================================== -->
+    <!-- ============== SEARCH ENGINE OPTIMIZATION (SEO) TAGS ============== -->
+    <!-- =================================================================== -->
+
+    <!-- Primary Meta Tags -->
+    <title>Privacy Policy - Atomic Guru</title>
+    <meta name="title" content="Privacy Policy - Atomic Guru">
+    <meta name="description" content="Privacy Policy for Atomic Guru Android App. We are committed to transparency: No data collection, no ads, no tracking. 100% Free and Secure.">
+    <meta name="keywords" content="Atomic Guru Privacy Policy, Data Safety, No Data Collected, Ad-free App, Periodic Table Privacy, Sandeep Biswal G, Educational App Policy">
+    <meta name="author" content="Sandeep Biswal G">
+    
+    <!-- Link to the official page -->
+    <link rel="canonical" href="https://imsbg.github.io/Atomic-Guru/privacy-policy">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://imsbg.github.io/Atomic-Guru/privacy-policy">
+    <meta property="og:title" content="Privacy Policy - Atomic Guru">
+    <meta property="og:description" content="We respect your privacy. Atomic Guru collects zero user data and contains no ads. Read our full transparency statement here.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://imsbg.github.io/Atomic-Guru/privacy-policy.html">
+    <meta property="twitter:title" content="Privacy Policy - Atomic Guru">
+    <meta property="twitter:description" content="We respect your privacy. Atomic Guru collects zero user data and contains no ads.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png">
+
+    <!-- =================================================================== -->
+    <!-- ======================= STYLES AND FONTS ========================== -->
+    <!-- =================================================================== -->
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            /* Futuristic Palette */
+            --bg-base: #F0F2F5;
+            --accent-primary: #007AFF;
+            --accent-glow: #5E5CE6;
+            --text-main: #111111;
+            --text-muted: #6e6e73;
+            
+            /* Spatial UI Variables */
+            --glass-surface: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --blur-strength: 30px;
+            
+            /* Dimensions */
+            --radius-outer: 36px;
+            --content-width: 900px;
+        }
+
+        /* --- Global Reset --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        /* --- Backgrounds (Same as Index) --- */
+        .aurora-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(0, 122, 255, 0.10), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(94, 92, 230, 0.10), transparent 25%);
+            filter: blur(60px);
+            animation: breathe 10s ease-in-out infinite alternate;
+        }
+        @keyframes breathe { from { opacity: 0.6; transform: scale(1); } to { opacity: 1; transform: scale(1.1); } }
+
+        .floating-elements-container { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .element-tile {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-weight: 700; color: var(--text-muted);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            animation: floatUp 25s linear infinite;
+        }
+        .element-tile .atomic-number { font-size: 0.7rem; position: absolute; top: 6px; left: 8px; opacity: 0.5; }
+        .element-tile .symbol { font-size: 1.5rem; color: var(--accent-primary); opacity: 0.8; }
+        @keyframes floatUp { 0% { transform: translateY(110vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(20deg); opacity: 0; } }
+
+        /* --- Layout --- */
+        .container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- Header --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 24px; margin-top: 24px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 100px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            position: sticky; top: 24px; z-index: 100;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+        .logo img { width: 40px; height: 40px; border-radius: 10px; }
+        .logo h1 { font-size: 1.2rem; font-weight: 700; }
+        
+        .back-btn {
+            background: var(--text-main); color: #fff; text-decoration: none;
+            padding: 8px 20px; border-radius: 30px;
+            font-weight: 600; font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        .back-btn:hover { transform: scale(1.05); }
+
+        /* --- Policy Content --- */
+        .policy-container {
+            margin: 60px 0 100px;
+            background: var(--glass-surface);
+            backdrop-filter: blur(var(--blur-strength));
+            -webkit-backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid var(--glass-border);
+            padding: 60px;
+            border-radius: var(--radius-outer);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .policy-header { margin-bottom: 40px; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 30px; }
+        .policy-header h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; color: var(--accent-primary); }
+        .policy-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        .policy-section { margin-bottom: 35px; }
+        .policy-section h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .policy-section h3 i { color: var(--accent-primary); font-size: 1.1rem; }
+        .policy-section p, .policy-section ul { color: var(--text-muted); margin-bottom: 15px; }
+        .policy-section ul { padding-left: 20px; }
+        .policy-section li { margin-bottom: 8px; }
+
+        .highlight-box {
+            background: rgba(0, 122, 255, 0.08);
+            border-left: 4px solid var(--accent-primary);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        /* --- Footer --- */
+        footer { text-align: center; padding: 40px 0; border-top: 1px solid rgba(0,0,0,0.05); color: var(--text-muted); font-size: 0.9rem; }
+        .contact-link { color: var(--accent-primary); text-decoration: none; font-weight: 600; }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .policy-container { padding: 30px 24px; margin-top: 40px; }
+            .policy-header h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="aurora-bg"></div>
+    <div class="floating-elements-container" aria-hidden="true"></div>
+
+    <div class="container">
+        <header>
+            <a href="index.html" class="logo">
+                <img src="https://raw.githubusercontent.com/imsbg/Atomic-Guru/master/images/logo.png" alt="Atomic Guru Logo">
+                <h1>Atomic Guru</h1>
+            </a>
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
+        </header>
+
+        <main class="policy-container">
+            <div class="policy-header">
+                <h2>Privacy Policy</h2>
+                <p>Last Updated: January 2026</p>
+            </div>
+
+            <div class="policy-section">
+                <h3><i class="fas fa-info-circle"></i> Introduction</h3>
+                <p>Atomic Guru ("the App") is an educational application created by Sandeep Biswal G. The App is designed to help users learn about the Periodic Table and chemical elements. This Privacy Policy describes how we handle information.</p>
+                <div class="highlight-box">
+                    <i class="fas fa-shield-alt"></i> <strong>Summary:</strong> Atomic Guru collects <strong>ZERO</strong> personal data. It is 100% free, contains no ads, and no third-party tracking.
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h3><i class="fas fa-user-shield"></i> Information Collection & Use</h3>
+                <p>We are committed to user privacy. The App operates with a strict "No-Data-Collection" policy:</p>
+                <ul>
+                    <li><strong>No Personal Information:</strong> We do not collect names, email addresses, phone numbers, or locations.</li>
+                    <li><strong>No Device Data:</strong> We do not collect device identifiers (IMEI, Advertising ID) or IP addresses.</li>
+                    <li><strong>No Usage Data:</strong> We do not track how you use the app or which elements you view.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section">
+                <h3><i class="fas fa-wifi"></i> Permissions & Internet Usage</h3>
+                <p>Atomic Guru is designed to work primarily <strong>offline</strong>. However, the app requests Internet permission for a single specific feature:</p>
+                <p><strong>External Links (Wikipedia):</strong> The app provides a "Learn more on Wikipedia" button for each chemical element. When you click this button, the app uses your device's internet connection to load the relevant Wikipedia article. The App itself does not transmit any data during this process; it simply directs you to the public educational content.</p>
+            </div>
+
+            <div class="policy-section">
+                <h3><i class="fas fa-ban"></i> Third-Party Services</h3>
+                <p>To ensure a pure educational experience, Atomic Guru does <strong>not</strong> contain:</p>
+                <ul>
+                    <li>Advertising SDKs (e.g., AdMob, Unity Ads).</li>
+                    <li>Analytics Tools (e.g., Google Analytics, Firebase Crashlytics).</li>
+                    <li>Social Media Tracking Pixels.</li>
+                    <li>Push Notification Services.</li>
+                </ul>
+            </div>
+
+           <div class="policy-section">
+                <h3><i class="fas fa-child"></i> Children’s Privacy</h3>
+                <p><strong>This Service is intended for  users aged 13 and above and is not directed to children under the age of 13.</strong></p>
+                <p>We do not knowingly collect personal identifiable information from children under 13. Since our application does not collect data, we do not possess any personal information about children. However, the application contains links to external sites (Wikipedia) which are not under our control.</p>
+                <p>If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we will be able to do necessary actions.</p>
+            </div>
+
+            <div class="policy-section">
+                <h3><i class="fas fa-sync-alt"></i> Changes to This Policy</h3>
+                <p>We may update our Privacy Policy from time to time to maintain compliance with Google Play policies. Thus, you are advised to review this page periodically for any changes. Any changes will be effective immediately after they are posted on this page.</p>
+            </div>
+
+            <div class="policy-section">
+                <h3><i class="fas fa-envelope"></i> Contact Us</h3>
+                <p>If you have any questions or suggestions about this Privacy Policy, please do not hesitate to contact the developer directly:</p>
+                <p><strong>Email:</strong> <a href="mailto:message.sbg@gmail.com" class="contact-link">message.sbg@gmail.com</a></p>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Sandeep Biswal G. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Re-using the floating background logic from the main page for consistency
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements-container');
+            const elements = [ { number: 1, symbol: 'H' }, { number: 2, symbol: 'He' }, { number: 6, symbol: 'C' }, { number: 8, symbol: 'O' }, { number: 14, symbol: 'Si' }, { number: 26, symbol: 'Fe' } ];
+            const elementCount = 12; // Reduced count for policy page to be less distracting
+
+            for (let i = 0; i < elementCount; i++) {
+                const tile = document.createElement('div');
+                tile.className = 'element-tile';
+                const randomElement = elements[Math.floor(Math.random() * elements.length)];
+                tile.innerHTML = `<span class="atomic-number">${randomElement.number}</span><span class="symbol">${randomElement.symbol}</span>`;
+                const size = Math.random() * 30 + 30; // Slightly smaller tiles
+                tile.style.width = `${size}px`;
+                tile.style.height = `${size}px`;
+                tile.style.left = `${Math.random() * 95}%`;
+                tile.style.animationDelay = `-${Math.random() * 25}s`; 
+                tile.style.animationDuration = `${Math.random() * 15 + 20}s`;
+                container.appendChild(tile);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', createFloatingElements);
+    </script>
+</body>
+</html>
