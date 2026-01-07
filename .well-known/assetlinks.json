@@ -1,9 +1,15 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.sandeep.atomicguru",
-    "sha256_cert_fingerprints":
-    ["CA:82:2F:39:C4:E0:AE:90:32:B1:1A:E0:15:11:54:FB:BC:80:1E:FC:C2:F4:1B:43:F1:64:01:3D:CC:A4:F3:41"]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.sandeep.atomicguru",
+      "sha256_cert_fingerprints": [
+        "4C:67:06:6E:AD:5F:35:E5:F0:BF:A4:04:ED:BA:8F:9B:37:A1:DA:0F:22:15:FC:9A:20:20:95:62:F6:7C:10:E1",
+        "CA:82:2F:39:C4:E0:AE:90:32:B1:1A:E0:15:11:54:FB:BC:80:1E:FC:C2:F4:1B:43:F1:64:01:3D:CC:A4:F3:41"
+      ]
+    }
   }
-}]
+]
