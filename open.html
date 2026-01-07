@@ -1,1 +1,334 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Guru - Deep Link</title>
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, #020617 100%);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+
+        /* Grid for all elements */
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            width: 95%;
+            padding-bottom: 50px;
+        }
+
+        .element-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            backdrop-filter: blur(10px);
+        }
+
+        .element-card:hover {
+            transform: translateY(-5px);
+            background: rgba(58, 123, 213, 0.2);
+            border-color: var(--primary);
+        }
+
+        .elem-num { font-size: 0.8rem; color: #94a3b8; display: block; }
+        .elem-sym { font-size: 1.8rem; font-weight: bold; display: block; margin: 5px 0; color: var(--primary); }
+        .elem-name { font-size: 0.9rem; display: block; }
+
+        /* Modal / Redirect Overlay */
+        #redirect-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+        }
+
+        .wiki-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 4px solid var(--secondary);
+            background-color: #000;
+        }
+
+        .loader {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .btn-manual {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Atomic Guru</h1>
+        <p class="subtitle">The Ultimate Periodic Table App</p>
+    </header>
+
+    <!-- Grid Container -->
+    <div class="elements-grid" id="grid"></div>
+
+    <!-- Redirect Modal -->
+    <div id="redirect-modal">
+        <div class="modal-content">
+            <div id="loading-spinner" class="loader"></div>
+            <h2 id="modal-title">Opening Element...</h2>
+            
+            <!-- Image fetched from Wikipedia -->
+            <img id="element-image" src="" alt="Element Image" class="wiki-image" style="display:none;">
+            
+            <p id="status-text">Redirecting to Atomic Guru app...</p>
+            
+            <a id="playstore-link" href="#" class="btn-manual">Download on Play Store</a>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+        const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.sandeep.atomicguru";
+        // Simple scheme: atomicguru://open?element=He
+        // Android Intent Scheme (Better for Android Chrome):
+        const PACKAGE_NAME = "com.sandeep.atomicguru";
+
+        // --- 2. DATA: ALL 118 ELEMENTS ---
+        const elements = [
+            { n: 1, s: "H", name: "Hydrogen" }, { n: 2, s: "He", name: "Helium" },
+            { n: 3, s: "Li", name: "Lithium" }, { n: 4, s: "Be", name: "Beryllium" },
+            { n: 5, s: "B", name: "Boron" }, { n: 6, s: "C", name: "Carbon" },
+            { n: 7, s: "N", name: "Nitrogen" }, { n: 8, s: "O", name: "Oxygen" },
+            { n: 9, s: "F", name: "Fluorine" }, { n: 10, s: "Ne", name: "Neon" },
+            { n: 11, s: "Na", name: "Sodium" }, { n: 12, s: "Mg", name: "Magnesium" },
+            { n: 13, s: "Al", name: "Aluminium" }, { n: 14, s: "Si", name: "Silicon" },
+            { n: 15, s: "P", name: "Phosphorus" }, { n: 16, s: "S", name: "Sulfur" },
+            { n: 17, s: "Cl", name: "Chlorine" }, { n: 18, s: "Ar", name: "Argon" },
+            { n: 19, s: "K", name: "Potassium" }, { n: 20, s: "Ca", name: "Calcium" },
+            { n: 21, s: "Sc", name: "Scandium" }, { n: 22, s: "Ti", name: "Titanium" },
+            { n: 23, s: "V", name: "Vanadium" }, { n: 24, s: "Cr", name: "Chromium" },
+            { n: 25, s: "Mn", name: "Manganese" }, { n: 26, s: "Fe", name: "Iron" },
+            { n: 27, s: "Co", name: "Cobalt" }, { n: 28, s: "Ni", name: "Nickel" },
+            { n: 29, s: "Cu", name: "Copper" }, { n: 30, s: "Zn", name: "Zinc" },
+            { n: 31, s: "Ga", name: "Gallium" }, { n: 32, s: "Ge", name: "Germanium" },
+            { n: 33, s: "As", name: "Arsenic" }, { n: 34, s: "Se", name: "Selenium" },
+            { n: 35, s: "Br", name: "Bromine" }, { n: 36, s: "Kr", name: "Krypton" },
+            { n: 37, s: "Rb", name: "Rubidium" }, { n: 38, s: "Sr", name: "Strontium" },
+            { n: 39, s: "Y", name: "Yttrium" }, { n: 40, s: "Zr", name: "Zirconium" },
+            { n: 41, s: "Nb", name: "Niobium" }, { n: 42, s: "Mo", name: "Molybdenum" },
+            { n: 43, s: "Tc", name: "Technetium" }, { n: 44, s: "Ru", name: "Ruthenium" },
+            { n: 45, s: "Rh", name: "Rhodium" }, { n: 46, s: "Pd", name: "Palladium" },
+            { n: 47, s: "Ag", name: "Silver" }, { n: 48, s: "Cd", name: "Cadmium" },
+            { n: 49, s: "In", name: "Indium" }, { n: 50, s: "Sn", name: "Tin" },
+            { n: 51, s: "Sb", name: "Antimony" }, { n: 52, s: "Te", name: "Tellurium" },
+            { n: 53, s: "I", name: "Iodine" }, { n: 54, s: "Xe", name: "Xenon" },
+            { n: 55, s: "Cs", name: "Caesium" }, { n: 56, s: "Ba", name: "Barium" },
+            { n: 57, s: "La", name: "Lanthanum" }, { n: 58, s: "Ce", name: "Cerium" },
+            { n: 59, s: "Pr", name: "Praseodymium" }, { n: 60, s: "Nd", name: "Neodymium" },
+            { n: 61, s: "Pm", name: "Promethium" }, { n: 62, s: "Sm", name: "Samarium" },
+            { n: 63, s: "Eu", name: "Europium" }, { n: 64, s: "Gd", name: "Gadolinium" },
+            { n: 65, s: "Tb", name: "Terbium" }, { n: 66, s: "Dy", name: "Dysprosium" },
+            { n: 67, s: "Ho", name: "Holmium" }, { n: 68, s: "Er", name: "Erbium" },
+            { n: 69, s: "Tm", name: "Thulium" }, { n: 70, s: "Yb", name: "Ytterbium" },
+            { n: 71, s: "Lu", name: "Lutetium" }, { n: 72, s: "Hf", name: "Hafnium" },
+            { n: 73, s: "Ta", name: "Tantalum" }, { n: 74, s: "W", name: "Tungsten" },
+            { n: 75, s: "Re", name: "Rhenium" }, { n: 76, s: "Os", name: "Osmium" },
+            { n: 77, s: "Ir", name: "Iridium" }, { n: 78, s: "Pt", name: "Platinum" },
+            { n: 79, s: "Au", name: "Gold" }, { n: 80, s: "Hg", name: "Mercury" },
+            { n: 81, s: "Tl", name: "Thallium" }, { n: 82, s: "Pb", name: "Lead" },
+            { n: 83, s: "Bi", name: "Bismuth" }, { n: 84, s: "Po", name: "Polonium" },
+            { n: 85, s: "At", name: "Astatine" }, { n: 86, s: "Rn", name: "Radon" },
+            { n: 87, s: "Fr", name: "Francium" }, { n: 88, s: "Ra", name: "Radium" },
+            { n: 89, s: "Ac", name: "Actinium" }, { n: 90, s: "Th", name: "Thorium" },
+            { n: 91, s: "Pa", name: "Protactinium" }, { n: 92, s: "U", name: "Uranium" },
+            { n: 93, s: "Np", name: "Neptunium" }, { n: 94, s: "Pu", name: "Plutonium" },
+            { n: 95, s: "Am", name: "Americium" }, { n: 96, s: "Cm", name: "Curium" },
+            { n: 97, s: "Bk", name: "Berkelium" }, { n: 98, s: "Cf", name: "Californium" },
+            { n: 99, s: "Es", name: "Einsteinium" }, { n: 100, s: "Fm", name: "Fermium" },
+            { n: 101, s: "Md", name: "Mendelevium" }, { n: 102, s: "No", name: "Nobelium" },
+            { n: 103, s: "Lr", name: "Lawrencium" }, { n: 104, s: "Rf", name: "Rutherfordium" },
+            { n: 105, s: "Db", name: "Dubnium" }, { n: 106, s: "Sg", name: "Seaborgium" },
+            { n: 107, s: "Bh", name: "Bohrium" }, { n: 108, s: "Hs", name: "Hassium" },
+            { n: 109, s: "Mt", name: "Meitnerium" }, { n: 110, s: "Ds", name: "Darmstadtium" },
+            { n: 111, s: "Rg", name: "Roentgenium" }, { n: 112, s: "Cn", name: "Copernicium" },
+            { n: 113, s: "Nh", name: "Nihonium" }, { n: 114, s: "Fl", name: "Flerovium" },
+            { n: 115, s: "Mc", name: "Moscovium" }, { n: 116, s: "Lv", name: "Livermorium" },
+            { n: 117, s: "Ts", name: "Tennessine" }, { n: 118, s: "Og", name: "Oganesson" }
+        ];
+
+        // --- 3. DOM GENERATION ---
+        const grid = document.getElementById('grid');
+        
+        elements.forEach(el => {
+            const card = document.createElement('div');
+            card.className = 'element-card';
+            card.innerHTML = `
+                <span class="elem-num">${el.n}</span>
+                <span class="elem-sym">${el.s}</span>
+                <span class="elem-name">${el.name}</span>
+            `;
+            // Click to simulate deeplink for that element
+            card.onclick = () => {
+                window.location.href = `?${el.s}`;
+            };
+            grid.appendChild(card);
+        });
+
+        // --- 4. LOGIC: WIKIPEDIA IMAGE & REDIRECT ---
+        
+        async function fetchWikiImage(elementName) {
+            try {
+                // Wikipedia REST API for page summary (contains thumbnail)
+                const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${elementName}`);
+                const data = await response.json();
+                if (data.thumbnail && data.thumbnail.source) {
+                    return data.thumbnail.source;
+                }
+                return null;
+            } catch (e) {
+                console.error("Wiki API Error", e);
+                return null;
+            }
+        }
+
+        async function handleDeepLink() {
+            // Get query string (remove the '?')
+            const query = window.location.search.substring(1);
+            
+            if (!query) return; // Stay on landing page if no query
+
+            // Find element (Case insensitive search)
+            const element = elements.find(e => e.s.toLowerCase() === query.toLowerCase() || e.name.toLowerCase() === query.toLowerCase());
+
+            if (element) {
+                const modal = document.getElementById('redirect-modal');
+                const title = document.getElementById('modal-title');
+                const imgTag = document.getElementById('element-image');
+                const spinner = document.getElementById('loading-spinner');
+                const linkBtn = document.getElementById('playstore-link');
+
+                // Show Modal
+                modal.style.display = 'flex';
+                title.innerText = `Opening ${element.name}...`;
+                linkBtn.href = PLAY_STORE_URL;
+
+                // 1. Fetch Image from Wikipedia
+                const imageUrl = await fetchWikiImage(element.name);
+                
+                spinner.style.display = 'none'; // Stop spinner
+                
+                if (imageUrl) {
+                    imgTag.src = imageUrl;
+                    imgTag.style.display = 'block';
+                } else {
+                    // Fallback placeholder if wiki fails
+                    imgTag.style.display = 'none'; 
+                }
+
+                // 2. Perform Redirection
+                
+                // Method A: Android Intent (Best for Android devices)
+                // This tries to open the app, if fails, opens Play Store link in browser
+                const intentUrl = `intent://open?id=${element.s}#Intent;scheme=atomicguru;package=${PACKAGE_NAME};S.browser_fallback_url=${PLAY_STORE_URL};end`;
+                
+                // Method B: Simple Custom Scheme (for testing or iOS fallback)
+                const customScheme = `atomicguru://open?id=${element.s}`;
+
+                // Logic: Try Intent first (Android), otherwise Custom Scheme + Timeout
+                const isAndroid = /Android/i.test(navigator.userAgent);
+
+                if (isAndroid) {
+                    window.location.href = intentUrl;
+                } else {
+                    // Desktop or iOS logic
+                    window.location.href = customScheme;
+                    
+                    // Fallback to playstore if app doesn't open
+                    setTimeout(() => {
+                        window.location.href = PLAY_STORE_URL;
+                    }, 2500);
+                }
+            }
+        }
+
+        // Run on load
+        handleDeepLink();
+
+    </script>
+</body>
+</html>
