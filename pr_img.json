@@ -1,1 +1,10 @@
-
+{
+  "promotions": [
+    {
+      "id": 1,
+      "imageUrl": "https://raw.githubusercontent.com/imsbg/Atomic-Guru/refs/heads/master/images/pr/pr3.png",
+      "destinationUrl": "https://play.google.com/store/apps/details?id=in.sandeep.odiabhasa",
+      "altText": "ଓଡ଼ିଆ ଭାଷା"
+    }
+  ]
+}
