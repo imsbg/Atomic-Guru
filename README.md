@@ -22,11 +22,11 @@
     <a href="https://play.google.com/store/apps/details?id=com.sandeep.atomicguru">
       <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="220" alt="Get it on Google Play"/>
     </a>
-    <br>
   </p>
+    <p align="center"> 
     <a href="https://www.indusappstore.com/apps/education/atomic-guru/com.sandeep.atomicguru/?page=details&id=com.sandeep.atomicguru">
     <img src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-oriya.png" height="50" style="padding-bottom: 2px;" alt="Get it on Indus App Store" />
-  </a>
+  </a>  </p>
 
 
 ## 🌟 About The Project
