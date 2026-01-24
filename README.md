@@ -80,18 +80,6 @@ This project is a showcase of a modern, 100% Kotlin-based Android application.
 *   **Image Loading:** [Coil](https://coil-kt.github.io/coil/) for loading SVG flag icons from assets.
 *   **Data Parsing:** [Gson](https://github.com/google/gson) for parsing the local JSON element data.
 
-## 🚀 Getting Started
-
-To get a local copy up and running, follow these simple steps.
-
-1.  Clone the repository:
-    ```sh
-    git clone https://github.com/your-username/Atomic-Guru.git
-    ```
-2.  Open the project in the latest version of Android Studio.
-3.  Let Gradle sync the dependencies.
-4.  Run the app on an emulator or a physical device.
-
 ## 👤 Contact
 
 Sandeep Biswal G - [@sandeepbiswalg](https://www.instagram.com/sandeepbiswalg/)
