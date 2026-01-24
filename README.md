@@ -13,7 +13,7 @@
   <img alt="Jetpack Compose" src="https://img.shields.io/badge/Jetpack%20Compose-100%25-4285F4?style=for-the-badge&logo=jetpackcompose"/>
   <img alt="Architecture" src="https://img.shields.io/badge/Architecture-MVVM-FB6116?style=for-the-badge"/>
 </p>
-  <p>
+    <p align="center">
     <img src="https://img.shields.io/badge/Ads-100%25%20Ad%20Free-success?style=flat-square" />
     <img src="https://img.shields.io/badge/Offline-Supported-blue?style=flat-square" />
   </p>
