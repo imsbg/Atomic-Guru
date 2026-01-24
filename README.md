@@ -13,7 +13,19 @@
   <img alt="Jetpack Compose" src="https://img.shields.io/badge/Jetpack%20Compose-100%25-4285F4?style=for-the-badge&logo=jetpackcompose"/>
   <img alt="Architecture" src="https://img.shields.io/badge/Architecture-MVVM-FB6116?style=for-the-badge"/>
 </p>
-
+  <p>
+    <img src="https://img.shields.io/badge/Ads-100%25%20Ad%20Free-success?style=flat-square" />
+    <img src="https://img.shields.io/badge/Offline-Supported-blue?style=flat-square" />
+  </p>
+  <!-- Download Buttons (Stacked) -->
+  <p align="center">
+    <a href="https://play.google.com/store/apps/details?id=com.sandeep.atomicguru">
+      <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="220" alt="Get it on Google Play"/>
+    </a>
+  </p>
+    <a href="https://www.indusappstore.com/apps/education/atomic-guru/com.sandeep.atomicguru/?page=details&id=com.sandeep.atomicguru">
+    <img src="https://docstore.indusappstore.com/public/external/developerdashboard-static/badge-black-background-oriya.png" height="50" style="padding-bottom: 2px;" alt="Get it on Indus App Store" />
+  </a>
 ---
 
 ## 🌟 About The Project
